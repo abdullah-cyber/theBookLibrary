@@ -54,7 +54,7 @@ const displayBooks = () => {
   }
 };
 
-Btn.addEventListener('click', (e) => {
+Btn.addEventListener('click', e => {
   e.preventDefault();
   createBook();
   addBookToLocal(myLibrary);
@@ -81,13 +81,13 @@ const removeBook = id => {
   localStorage.setItem('myLibrary', JSON.stringify(filter));
 };
 
-const deleteBook = (el) => {
+const deleteBook = el => {
   if (el.classList.contains('deleteButton')) {
     el.parentElement.parentElement.remove();
   }
 };
 
-libraryList.addEventListener('click', (e) => {
+libraryList.addEventListener('click', e => {
   deleteBook(e.target);
   removeBook(e.target.parentElement.nextElementSibling.textContent);
   getBookFromLocal();
