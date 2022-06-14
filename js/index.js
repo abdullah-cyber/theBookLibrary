@@ -65,7 +65,7 @@ const getBookFromLocal = () => {
   if (!localStorage.myLibrary) {
     myLibrary = [];
   } else {
-    let objects = localStorage.getItem('myLibrary'); // gets information from local storage to use in below loop to create DOM/display
+    let objects = localStorage.getItem('myLibrary');
     objects = JSON.parse(objects);
     myLibrary = objects;
     displayBooks();
