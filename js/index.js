@@ -1,5 +1,5 @@
 const form = document.querySelector('#form');
-const Btn = document.querySelector('#add-btn');
+const btn = document.querySelector('#add-btn');
 const libraryList = document.querySelector('#library-list');
 
 let myLibrary = [];
@@ -37,12 +37,12 @@ const createBook = () => {
 const displayBooks = () => {
   libraryList.innerHTML = '';
   for (let i = 0; i < myLibrary.length; i += 1) {
-    const libraryItem = document.createElement('div');
+    const libraryItem = document.createElement('tr');
     libraryItem.classList.add('library-row');
-    libraryItem.innerHTML = `<table class="table table-striped table-responsive table-hover">
+    libraryItem.innerHTML = `<table class="table table-striped table-hover">
         <tbody>
-          <tr>  
-            <td>${i}</td>
+          <tr>
+            <th scope = 'row'>${i}</th>
             <td>${myLibrary[i].title}</td>
             <td>${myLibrary[i].author}</td>
             <td><button class = "deleteButton">Delete</button></td>
@@ -54,7 +54,7 @@ const displayBooks = () => {
   }
 };
 
-Btn.addEventListener('click', e => {
+btn.addEventListener('click', e => {
   e.preventDefault();
   createBook();
   addBookToLocal(myLibrary);
