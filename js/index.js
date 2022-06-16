@@ -45,7 +45,7 @@ const displayBooks = () => {
             <th scope = 'row'>${i}</th>
             <td>${myLibrary[i].title}</td>
             <td>${myLibrary[i].author}</td>
-            <td><button class = "deleteButton">Delete</button></td>
+            <td><button class = "deleteButton btn-danger">Delete</button></td>
            <td style = 'display: none'>${myLibrary[i].id}</td>
           </tr>
         </tbody>
