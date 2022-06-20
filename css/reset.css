@@ -1,1 +1,25 @@
 /* Base styles */
+.awesome-books {
+  margin: 100px 400px;
+}
+
+.table-div {
+  border: 4px solid black;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+form {
+  width: 400px;
+}
+
+.deleteButton {
+  box-shadow: black 3px 5px;
+}
+
+.btn {
+  box-shadow: black 3px 5px;
+}
