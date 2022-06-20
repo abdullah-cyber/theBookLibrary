@@ -29,7 +29,6 @@ const createBook = () => {
   book.title = form.Title.value;
   book.author = form.Author.value;
   myLibrary.push(book);
-  myLibrary.join(', ');
   clear();
 };
 
