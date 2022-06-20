@@ -1,6 +1,6 @@
-# Project Name
+# Book Library
 
-> One paragraph statement about the project.
+> A Book Library project that features the basic CRUD operation
 
 ![screenshot](./app_screenshot.png)
 
