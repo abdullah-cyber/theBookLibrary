@@ -56,8 +56,7 @@ class theBook {
     row.innerHTML = `<table class="table table-striped table-responsive table-hover">
           <tbody>
             <tr> 
-              <td>${book.title}</td>
-              <td>${book.author}</td>
+              <td><strong>"${book.title}" by ${book.author}</strong></td>
               <td><button class = "deleteButton btn-danger">Delete</button></td>
              <td style = 'display: none'>${book.id}</td>
             </tr>

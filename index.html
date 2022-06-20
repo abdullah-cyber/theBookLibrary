@@ -18,19 +18,17 @@
   </head>
   <body>
     <div class="responsive">
-      <h1 class="text-capitalize text-center pb-5">Awesome books</h1>
-      <table class="table table-striped table-responsive table-hover">
-        <thead class="h4">
-          <tr>
-            <th scope="col">TITLE</th>
-            <th scope="col">AUTHOR</th>
-            <th scope="col">DELETE</th>
-          </tr>
-        </thead>
-        <tbody id="library-list"></tbody>
-      </table>
-      <div></div>
-      <form id="form">
+      <div class="awesome-books">
+        <h1 class="text-center"><strong>All awesome books</strong></h1>
+        <div class="table-div responsive ">
+          <table class="table table-striped table-responsive table-hover border">
+            <tbody id="library-list"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <form id="form" class="col-md-4 col-md-offset-4">
+        <h1 class="text-center pb-5"><strong>Add a new book</strong></h1>
         <div class="form-group">
           <label for="title" class="sr-only">Title</label>
           <input
@@ -54,7 +52,9 @@
             class="form-control book-input"
           />
         </div>
-        <button type="submit" id="add-btn" class="btn text-capitalize">add</button>
+        <button type="submit" id="add-btn" class="btn text-capitalize pull-right">
+          <strong>add</strong>
+        </button>
       </form>
     </div>
 
