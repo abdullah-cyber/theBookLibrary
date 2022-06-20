@@ -2,8 +2,6 @@ const form = document.querySelector('#form');
 const btn = document.querySelector('#add-btn');
 const libraryList = document.querySelector('#library-list');
 
-let myLibrary = [];
-
 const getID = () => {
   const id = new Date()
     .getTime()
@@ -13,81 +11,93 @@ const getID = () => {
   return id;
 };
 
-const clear = () => {
-  form.Author.value = '';
-  form.Title.value = '';
-};
-
-// saving to local
-const addBookToLocal = myLibrary => {
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-};
-
-const createBook = () => {
-  const book = { id: '', title: '', author: '' };
-  book.id = getID();
-  book.title = form.Title.value;
-  book.author = form.Author.value;
-  myLibrary.push(book);
-  clear();
-};
-
-// displayBooks
-const displayBooks = () => {
-  libraryList.innerHTML = '';
-  for (let i = 0; i < myLibrary.length; i += 1) {
-    const libraryItem = document.createElement('tr');
-    libraryItem.classList.add('library-row');
-    libraryItem.innerHTML = `<table class="table table-striped table-hover">
-        <tbody>
-          <tr>
-            <th scope = 'row'>${i}</th>
-            <td>${myLibrary[i].title}</td>
-            <td>${myLibrary[i].author}</td>
-            <td><button class = "deleteButton btn-danger">Delete</button></td>
-           <td style = 'display: none'>${myLibrary[i].id}</td>
-          </tr>
-        </tbody>
-      </table>`;
-    libraryList.append(libraryItem);
+class Book {
+  constructor(id, title, author) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
   }
-};
+}
+
+class storeToLocal {
+  static getBooks() {
+    let myLibrary;
+    if (localStorage.getItem('myLibrary') === null) {
+      myLibrary = [];
+    } else {
+      const objects = localStorage.getItem('myLibrary');
+      myLibrary = JSON.parse(objects);
+    }
+    return myLibrary;
+  }
+
+  static addBooks(book) {
+    const myLibrary = storeToLocal.getBooks();
+    myLibrary.push(book);
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  }
+
+  static removeBooks(id) {
+    const myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+    const filter = myLibrary.filter(library => library.id !== id);
+    localStorage.setItem('myLibrary', JSON.stringify(filter));
+  }
+}
+
+class theBook {
+  static createBook() {
+    const myLibrary = storeToLocal.getBooks();
+    const books = myLibrary;
+    books.forEach(book => theBook.displayBooks(book));
+  }
+
+  static displayBooks(book) {
+    const row = document.createElement('tr');
+    row.innerHTML = `<table class="table table-striped table-responsive table-hover">
+          <tbody>
+            <tr> 
+              <td>${book.title}</td>
+              <td>${book.author}</td>
+              <td><button class = "deleteButton btn-danger">Delete</button></td>
+             <td style = 'display: none'>${book.id}</td>
+            </tr>
+          </tbody>
+        </table>`;
+    libraryList.appendChild(row);
+  }
+
+  static clearFields() {
+    form.Title.value = '';
+    form.Author.value = '';
+  }
+
+  static deleteBook(el) {
+    if (el.classList.contains('deleteButton')) {
+      el.parentElement.parentElement.remove();
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', theBook.createBook());
 
 btn.addEventListener('click', e => {
   e.preventDefault();
-  createBook();
-  addBookToLocal(myLibrary);
-  displayBooks();
+  const id = getID();
+  const title = form.Title.value;
+  const author = form.Author.value;
+  // add book to page
+  if (title === '' || author === '') {
+    return btn.disabled === true;
+  }
+  const books = new Book(id, title, author);
+  theBook.displayBooks(books); // add books to ui
+  theBook.clearFields();
+  storeToLocal.addBooks(books); // add books to local
+  return true;
 });
 
-const getBookFromLocal = () => {
-  if (!localStorage.myLibrary) {
-    myLibrary = [];
-  } else {
-    let objects = localStorage.getItem('myLibrary');
-    objects = JSON.parse(objects);
-    myLibrary = objects;
-    displayBooks();
-  }
-};
-
-document.addEventListener('DOMContentLoaded', getBookFromLocal());
-
-// delete from localStorage
-const removeBook = id => {
-  const myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-  const filter = myLibrary.filter(library => library.id !== id);
-  localStorage.setItem('myLibrary', JSON.stringify(filter));
-};
-
-const deleteBook = el => {
-  if (el.classList.contains('deleteButton')) {
-    el.parentElement.parentElement.remove();
-  }
-};
-
+// delete
 libraryList.addEventListener('click', e => {
-  deleteBook(e.target);
-  removeBook(e.target.parentElement.nextElementSibling.textContent);
-  getBookFromLocal();
+  theBook.deleteBook(e.target); // delete from ui
+  storeToLocal.removeBooks(e.target.parentElement.nextElementSibling.textContent);
 });
