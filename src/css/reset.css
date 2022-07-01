@@ -1,4 +1,8 @@
 /* Base styles */
+nav {
+  width: 100%;
+}
+
 .awesome-books {
   margin: 100px 400px;
 }
@@ -22,4 +26,13 @@ form {
 
 .btn {
   box-shadow: black 3px 5px;
+}
+
+.footer {
+  bottom: 0;
+  margin: 0 auto !important;
+  text-align: center !important;
+  width: 100% !important;
+  height: 40px;
+  position: absolute;
 }
